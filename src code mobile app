@@ -1,0 +1,2739 @@
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Image, Text, View, ImageBackground, SafeAreaView, TouchableOpacity, TextInput } from 'react-native';
+import { NavigationContainer, useNavigation, useRoute } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import * as ImagePicker from 'expo-image-picker';
+import React, { useState, useEffect } from 'react';
+
+import WelcomePage from './welcome.js';
+import RegisterPage from './register.js';
+import LoginPage from './login.js';
+import HomePage from './home.js';
+import FacilityPage from './facility.js';
+import ProfilePage from './profile.js';
+import BadmintonPage from './badminton.js';
+import BasketballPage from './basketball.js';
+import VolleyballPage from './volleyball.js';
+import BookingPage from './booking.js';
+import BookingdetailsPage from './bookingdetails.js';
+import PaymentDetailsPage from './PaymentDetails.js';
+import PayPalPaymentPage from './PaypalPayment.js';
+
+
+
+const Stack = createNativeStackNavigator();
+
+export default function App() {
+  const [isCameraPermissionGranted, setIsCameraPermissionGranted] = useState(false); 
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      setIsCameraPermissionGranted(status === 'granted');
+    })();
+  }, []); 
+
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{
+        headerShown: false,
+      }}>
+        <Stack.Screen name="WelcomePage" component={WelcomePage} />
+        <Stack.Screen name="RegisterPage" component={RegisterPage} />
+        <Stack.Screen name="LoginPage" component={LoginPage} />
+        <Stack.Screen name="HomePage" component={HomePage} />
+        <Stack.Screen name="FacilityPage" component={FacilityPage} />
+        <Stack.Screen name="ProfilePage" component={ProfilePage} />
+        <Stack.Screen name="BadmintonPage" component={BadmintonPage} />
+        <Stack.Screen name="BasketballPage" component={BasketballPage} />
+        <Stack.Screen name="VolleyballPage" component={VolleyballPage} />
+        <Stack.Screen name="BookingPage" component={BookingPage} />
+        
+        <Stack.Screen name="PaymentDetailsPage" component={PaymentDetailsPage} />
+
+        
+        <Stack.Screen name="BookingdetailsPage" component={BookingdetailsPage} />
+        <Stack.Screen name="PaypalPaymentPage" component={PayPalPaymentPage} />
+        
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  
+});
+
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Image, Text, View, ImageBackground, SafeAreaView, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+export default function BadmintonPage() {
+  const navigation = useNavigation();
+  return (
+    <SafeAreaView style={styles.container}>
+     
+     
+      <ImageBackground source={require('./assets/background.jpg')} style={styles.image}>
+      
+        <View style={styles.overlay} />
+        <Text style={styles.text}>BADMINTON COURT</Text>
+        <View style={styles.redRectangle} />
+        
+        <View style={styles.scrollViewContent}>
+          <View style={styles.courtContainer}>
+            <Image source={require('./assets/badminton.png')} style={styles.courtImage} />
+            <Text style={styles.courtTitle}>BADMINTON-WHOLE COURT</Text>
+            <Text style={styles.subcourtTitle}>For additional hours, kindly make another booking</Text>
+            <Text style={styles.prizeText}>1 HOUR  ₱500.00</Text>
+            <View style={styles.buttonRow}>
+              <TouchableOpacity style={styles.bookButton} onPress={() => navigation.navigate('BookingPage', {
+                courtTitle: 'BADMINTON-WHOLE COURT',
+                prizeText: '₱500.00'
+              })}>
+                <Text style={styles.buttonText}>BOOK NOW</Text>
+              </TouchableOpacity>
+              <View style={styles.eventInfo}>
+                <Text style={styles.eventInfoText}>Book This For Your Event</Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.courtContainer}>
+            <Image source={require('./assets/badminton.png')} style={styles.courtImage} />
+            <Text style={styles.courtTitle}>BADMINTON-HALF COURT</Text>
+            <Text style={styles.subcourtTitle}>For additional hours, kindly make another booking</Text>
+            <Text style={styles.prizeText}>1 HOUR  ₱300.00</Text>
+            <View style={styles.buttonRow}>
+              <TouchableOpacity style={styles.bookButton} onPress={() => navigation.navigate('BookingPage', {
+                courtTitle: 'BADMINTON-HALF COURT',
+                prizeText: '₱300.00'
+              })}>
+                <Text style={styles.buttonText}>BOOK NOW</Text>
+              </TouchableOpacity>
+              <View style={styles.eventInfo}>
+                <Text style={styles.eventInfoText}>Book This For Your Event</Text>
+              </View>
+            </View>
+          </View>
+          
+        </View>
+        <View style={styles.redRectangle1}>
+          <View style={styles.bottomRow}>
+            <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.goBack()}>
+              <Image source={require('./assets/backspace.png')} style={styles.bottomImage} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('HomePage')}>
+              <Image source={require('./assets/home.png')} style={styles.bottomImage} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('Calendar')}>
+              <Image source={require('./assets/calendar.png')} style={styles.bottomImage} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('ProfilePage')}>
+              <Image source={require('./assets/profile.png')} style={styles.bottomImage} />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ImageBackground>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  scrollViewContent: {
+    alignItems: 'center',
+    padding: 20,
+  },
+  courtContainer: {
+    width: '90%',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    padding: 20,
+    borderRadius: 10,
+    marginBottom: 40,
+    alignItems: 'center',
+  },
+  courtImage: {
+    width: 316,
+    height: 117,
+    marginBottom: 5,
+  },
+  courtTitle: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  subcourtTitle: {
+    fontSize: 12,
+    fontWeight: 'regular',
+    marginBottom: 5,
+    textAlign: 'center',
+  },
+  buttonRow: {
+    flexDirection: 'row', 
+    alignItems: 'center', 
+  },
+  bookButton: {
+    backgroundColor: '#800000',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+    width: '35%',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 12,
+    textAlign: 'center',
+  },
+  image: {
+    flex: 1,
+    resizeMode: 'cover',
+    width: '100%',
+    height: '100%',
+  },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: '#800000',
+    opacity: 0.5,
+  },
+  text: {
+    color: 'white',
+    fontSize: 20,
+    textAlign: 'center',
+    left: 5,
+    marginTop: '20%',
+  },
+  eventInfo: {
+    backgroundColor: '#8C8C8C',
+    padding: 10,
+    borderRadius: 5,
+    marginLeft: 10, 
+    width: '60%',
+    marginTop: 10,
+  },
+  eventInfoText: {
+    color: 'white',
+    fontSize: 12,
+  },
+  redRectangle: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 70,
+    backgroundColor: '#800000',
+  },
+  redRectangle1: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 60,
+    backgroundColor: '#800000',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  bottomRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  bottomButton: {
+    padding: 10,
+  },
+  bottomImage: {
+    width: 30,
+    height: 30,
+    marginHorizontal: 30,
+  },
+});
+
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Image, Text, View, ImageBackground, SafeAreaView, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+
+export default function BasketballPage() {
+    const navigation = useNavigation();
+    return (
+        <SafeAreaView style={styles.container}>
+            <ImageBackground source={require('./assets/background.jpg')} style={styles.image}>
+                <View style={styles.overlay} />
+                <Text style={styles.text}>BASKETBALL COURT</Text>
+                <View style={styles.redRectangle} />
+
+                <View style={styles.scrollViewContent}>
+                    <View style={styles.courtContainer}>
+                        <Image source={require('./assets/basketball.png')} style={styles.courtImage} />
+                        <Text style={styles.courtTitle}>BASKETBALL-WHOLE COURT</Text>
+                        <Text style={styles.subcourtTitle}>For additional hours, kindly make another booking</Text>
+                        <Text style={styles.prizeText}>1 HOUR  ₱500.00</Text>
+                        <View style={styles.buttonRow}>
+                            <TouchableOpacity style={styles.bookButton} onPress={() => navigation.navigate('BookingPage', {
+                                courtTitle: 'BASKETBALL-WHOLE COURT',
+                                prizeText: '₱500.00'
+                            })}>
+                                <Text style={styles.buttonText}>BOOK NOW</Text>
+                            </TouchableOpacity>
+                            <View style={styles.eventInfo}>
+                                <Text style={styles.eventInfoText}>Book This For Your Event</Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={styles.courtContainer}>
+                        <Image source={require('./assets/basketball.png')} style={styles.courtImage} />
+                        <Text style={styles.courtTitle}>BASKETBALL-HALF COURT</Text>
+                        <Text style={styles.subcourtTitle}>For additional hours, kindly make another booking</Text>
+                        <Text style={styles.prizeText}>1 HOUR  ₱300.00</Text>
+                        <View style={styles.buttonRow}>
+                            <TouchableOpacity style={styles.bookButton} onPress={() => navigation.navigate('BookingPage', {
+                                courtTitle: 'BASKETBALL-HALF COURT',
+                                prizeText: '₱300.00'
+                            })}>
+                                <Text style={styles.buttonText}>BOOK NOW</Text>
+                            </TouchableOpacity>
+                            <View style={styles.eventInfo}>
+                                <Text style={styles.eventInfoText}>Book This For Your Event</Text>
+                            </View>
+                        </View>
+                    </View>
+
+                </View>
+                <View style={styles.redRectangle1}>
+                    <View style={styles.bottomRow}>
+                        <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.goBack()}>
+                            <Image source={require('./assets/backspace.png')} style={styles.bottomImage} />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('HomePage')}>
+                            <Image source={require('./assets/home.png')} style={styles.bottomImage} />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('Calendar')}>
+                            <Image source={require('./assets/calendar.png')} style={styles.bottomImage} />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('ProfilePage')}>
+                            <Image source={require('./assets/profile.png')} style={styles.bottomImage} />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </ImageBackground>
+        </SafeAreaView>
+    );
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    scrollViewContent: {
+        alignItems: 'center',
+        padding: 20,
+    },
+    courtContainer: {
+        width: '90%',
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        padding: 20,
+        borderRadius: 10,
+        marginBottom: 40,
+        alignItems: 'center',
+    },
+    courtImage: {
+        width: 316,
+        height: 117,
+        marginBottom: 5,
+    },
+    courtTitle: {
+        fontSize: 12,
+        fontWeight: 'bold',
+        marginBottom: 5,
+    },
+    subcourtTitle: {
+        fontSize: 12,
+        fontWeight: 'regular',
+        marginBottom: 5,
+        textAlign: 'center',
+    },
+    buttonRow: {
+        flexDirection: 'row', 
+        alignItems: 'center',
+    },
+    bookButton: {
+        backgroundColor: '#800000',
+        padding: 10,
+        borderRadius: 5,
+        marginTop: 10,
+        width: '35%',
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 12,
+        textAlign: 'center',
+    },
+    image: {
+        flex: 1,
+        resizeMode: 'cover',
+        width: '100%',
+        height: '100%',
+    },
+    overlay: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: '#800000',
+        opacity: 0.5,
+    },
+    text: {
+        color: 'white',
+        fontSize: 20,
+        textAlign: 'center',
+        left: 5,
+        marginTop: '20%',
+    },
+    eventInfo: {
+        backgroundColor: '#8C8C8C',
+        padding: 10,
+        borderRadius: 5,
+        marginLeft: 10, 
+        width: '60%',
+        marginTop: 10,
+    },
+    eventInfoText: {
+        color: 'white',
+        fontSize: 12,
+    },
+    redRectangle: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: 70,
+        backgroundColor: '#800000',
+    },
+    redRectangle1: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: 60,
+        backgroundColor: '#800000',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+    },
+    bottomRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    },
+    bottomButton: {
+        padding: 10,
+    },
+    bottomImage: {
+        width: 30,
+        height: 30,
+        marginHorizontal: 30,
+    },
+});
+
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Image, Text, View, ImageBackground, SafeAreaView, TouchableOpacity, TextInput, ScrollView, Alert, Button } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import React, { useState } from 'react';
+import DateTimePicker from '@react-native-community/datetimepicker';
+
+export default function BookingPage() {
+    const navigation = useNavigation();
+    const route = useRoute();
+
+    const courtTitle = route.params?.courtTitle || '';
+    const prizeText = route.params?.prizeText || '';
+    const [prize, setPrize] = useState(prizeText.split(' ')[1]);
+
+    const [date, setDate] = useState(new Date());
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
+    const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [showTimeSlots, setShowTimeSlots] = useState(false);
+
+    const timeSlots = [
+        '6:00 AM - 7:00 AM',
+        '7:00 AM - 8:00 AM',
+        '8:00 AM - 9:00 AM',
+        '9:00 AM - 10:00 AM',
+        '10:00 AM - 11:00 AM',
+        '6:00 PM - 7:00 PM',
+        '7:00 PM - 8:00 PM',
+        '8:00 PM - 9:00 PM',
+        '9:00 PM - 10:00 PM',
+        '10:00 PM - 11:00 PM',
+    ];
+
+    const onChange = (event, selectedDate) => {
+        if (selectedDate) {
+            setDate(selectedDate);
+        }
+        setShow(false);
+    };
+
+    const showMode = (currentMode) => {
+        setMode(currentMode);
+        setShow(true);
+    };
+
+    const showDatepicker = () => {
+        showMode('date');
+    };
+
+    const showTimepicker = () => {
+        showMode('time');
+    };
+
+    const handleBooking = async () => {
+        try {
+            //This check is crucial.  It ensures handleBooking is only called when ready
+            if (!selectedTimeSlot || !date) {
+                Alert.alert('Error', 'Please select a date and time slot.');
+                return;
+            }
+
+            const response = await fetch('http://192.168.1.187:3000/bookings', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    courtTitle: courtTitle,
+                    prize: prizeText,
+                    date: date,
+                    timeSlot: selectedTimeSlot,
+                    name: name,
+                    email: email,
+                }),
+            });
+
+            console.log("Data being passed to BookingdetailsPage:", {
+                courtTitle: courtTitle,
+                prizeText: prizeText,
+                selectedDate: date,
+                selectedTime: selectedTimeSlot,
+            });
+
+            // Check for successful response
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Booking successful:', data);
+
+                // Navigate to PaymentDetailsPage with the data
+                navigation.navigate('PaymentDetailsPage', {
+                    bookingId: data.bookingId, // Assuming your API returns a booking ID
+                    courtTitle: courtTitle,
+                    prizeText: prizeText,
+                    selectedDate: date,
+                    selectedTime: selectedTimeSlot,
+                    name: name,
+                    email: email,
+                });
+            } else {
+                const errorData = await response.json();
+                let errorMessage = 'Booking failed. Please try again.';
+                if (errorData && errorData.message) {
+                    errorMessage = errorData.message;
+                }
+                Alert.alert('Error', errorMessage);
+            }
+        } catch (error) {
+            console.error('Booking error:', error);
+            Alert.alert('Error', 'Booking failed. Please try again.');
+        }
+    };
+
+    const isBookingEnabled = selectedTimeSlot && date;
+
+    return (
+        <SafeAreaView style={styles.container}>
+            <ImageBackground source={require('./assets/background.jpg')} style={styles.image}>
+                <View style={styles.overlay} />
+                <View style={styles.redRectangle} />
+                <Image source={require('./assets/logo.png')} style={styles.logo} />
+
+                <View style={styles.formContainer}>
+                    <ScrollView contentContainerStyle={styles.formContent}>
+                        <View style={styles.content}>
+                            <View style={styles.courtInfo}>
+                                <Text style={styles.courtTitle}>{courtTitle}</Text>
+                                <Text style={styles.prizeText}>{prizeText}</Text>
+                            </View>
+
+                            <Text style={styles.chooseDateText}>CHOOSE DATE:</Text>
+                            <TouchableOpacity onPress={showDatepicker} style={styles.datePickerButton}>
+                                <Text style={styles.datePickerButtonText}>{date.toLocaleDateString()}</Text>
+                            </TouchableOpacity>
+                            {show && (
+                                <DateTimePicker
+                                    value={date}
+                                    mode={mode}
+                                    is24Hour={true}
+                                    display="default"
+                                    onChange={onChange}
+                                />
+                            )}
+
+                            <Text style={styles.chooseDateText}>CHOOSE TIME SLOT:</Text>
+                            <TouchableOpacity
+                                style={[styles.timeSlotButton, selectedTimeSlot && styles.selectedTimeSlot]}
+                                onPress={() => setShowTimeSlots(!showTimeSlots)}
+                            >
+                                <Text style={styles.timeSlotButtonText}>{selectedTimeSlot || 'Select Time Slot'}</Text>
+                            </TouchableOpacity>
+                            {showTimeSlots && (
+                                <View style={styles.timeSlotDropdown}>
+                                    {timeSlots.map((timeSlot, index) => (
+                                        <TouchableOpacity
+                                            key={index}
+                                            style={styles.timeSlotDropdownItem}
+                                            onPress={() => {
+                                                setSelectedTimeSlot(timeSlot);
+                                                setShowTimeSlots(false);
+                                            }}
+                                        >
+                                            <Text style={styles.timeSlotDropdownItemText}>{timeSlot}</Text>
+                                        </TouchableOpacity>
+                                    ))}
+                                </View>
+                            )}
+
+                            <View style={styles.inputContainer}>
+                                <Text style={styles.inputLabel}>Name:</Text>
+                                <TextInput
+                                    style={styles.input}
+                                    value={name}
+                                    onChangeText={setName}
+                                />
+                            </View>
+
+                            <View style={styles.inputContainer}>
+                                <Text style={styles.inputLabel}>Email:</Text>
+                                <TextInput
+                                    style={styles.input}
+                                    value={email}
+                                    onChangeText={setEmail}
+                                    keyboardType="email-address"
+                                />
+                            </View>
+
+                            <TouchableOpacity style={styles.submitButton} onPress={handleBooking} disabled={!isBookingEnabled}>
+                                <Text style={styles.submitButtonText}>Submit Booking</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </ScrollView>
+                </View>
+
+                <View style={styles.redRectangle1}>
+                    <View style={styles.bottomRow}>
+                        <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.goBack()}>
+                            <Image source={require('./assets/backspace.png')} style={styles.bottomImage} />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('HomePage')}>
+                            <Image source={require('./assets/home.png')} style={styles.bottomImage} />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('Calendar')}>
+                            <Image source={require('./assets/calendar.png')} style={styles.bottomImage} />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('ProfilePage')}>
+                            <Image source={require('./assets/profile.png')} style={styles.bottomImage} />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </ImageBackground>
+        </SafeAreaView>
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    formContainer: {
+        flex: 1,
+        width: '90%',
+        backgroundColor: 'white',
+        padding: 50,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 170,
+        marginLeft: 25,
+    },
+    formContent: {
+        flexGrow: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    content: {
+        flex: 1,
+    },
+    chooseDateText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginTop: 20,
+    },
+    datePickerButton: {
+        backgroundColor: '#800000',
+        padding: 10,
+        borderRadius: 5,
+        marginTop: 10,
+        width: 150,
+    },
+    datePickerButtonText: {
+        color: 'white',
+        fontSize: 16,
+    },
+    inputContainer: {
+        marginTop: 15,
+        width: 300,
+    },
+    inputLabel: {
+        fontSize: 16,
+        marginBottom: 5,
+    },
+    input: {
+        borderWidth: 1,
+        borderColor: '#ccc',
+        padding: 10,
+        borderRadius: 5,
+    },
+    submitButton: {
+        backgroundColor: '#800000',
+        padding: 15,
+        borderRadius: 5,
+        alignItems: 'center',
+        marginTop: 20,
+        width: 200,
+    },
+    submitButtonText: {
+        color: 'white',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    redRectangle: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: 70,
+        backgroundColor: '#800000',
+    },
+    redRectangle1: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: 60,
+        backgroundColor: '#800000',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+    },
+    bottomRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    },
+    bottomButton: {
+        padding: 10,
+    },
+    bottomImage: {
+        width: 30,
+        height: 30,
+        marginHorizontal: 30,
+    },
+    logo: {
+        position: 'absolute',
+        top: 70,
+        left: '40%',
+        width: 94,
+        height: 98,
+        resizeMode: 'contain',
+    },
+    overlay: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: '#800000',
+        opacity: 0.5,
+    },
+    image: {
+        flex: 1,
+        resizeMode: 'cover',
+        width: '100%',
+        height: '100%',
+    },
+    timeSlotContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        marginTop: 10,
+    },
+    timeSlotButton: {
+        backgroundColor: '#800000',
+        padding: 10,
+        borderRadius: 5,
+        margin: 5,
+        width: 150,
+    },
+    timeSlotButtonText: {
+        color: 'white',
+        fontSize: 16,
+        textAlign: 'center',
+    },
+    selectedTimeSlot: {
+        backgroundColor: '#800000',
+    },
+    timeSlotDropdown: {
+        backgroundColor: 'white',
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 5,
+        marginTop: 5,
+        width: 150,
+        position: 'absolute',
+        zIndex: 1,
+    },
+    timeSlotDropdownItem: {
+        padding: 10,
+    },
+    timeSlotDropdownItemText: {
+        fontSize: 16,
+    },
+    courtInfo: {
+        alignItems: 'center',
+        marginVertical: 20,
+    },
+    courtTitle: {
+        fontSize: 22,
+        fontWeight: 'bold',
+    },
+    prizeText: {
+        fontSize: 18,
+        marginVertical: 10,
+        color: '#888',
+    },
+    gcashImage: {
+        width: 150,
+        height: 50,
+        marginTop: 5,
+        padding: 10,
+
+        borderColor: '#ccc',
+    },
+});
+
+import React from 'react';
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, ImageBackground, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+export default function BookingdetailsPage({ route }) {
+    const navigation = useNavigation();
+
+    // Validate params
+    const { courtTitle, prizeText, selectedDate, selectedTime } = route.params || {};
+
+    if (!route.params) {
+        return (
+            <SafeAreaView style={styles.container}>
+                <Text style={styles.errorText}>Error: Booking details not provided.</Text>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => navigation.navigate('HomePage')}
+                >
+                    <Text style={styles.buttonText}>Back to Home</Text>
+                </TouchableOpacity>
+            </SafeAreaView>
+        );
+    }
+
+    return (
+        <SafeAreaView style={styles.container}>
+            <ImageBackground source={require('./assets/background.jpg')} style={styles.backgroundImage}>
+                <View style={styles.overlay}>
+                    <View style={styles.whiteContainer}>
+                        <Text style={styles.header}>Booking Confirmation</Text>
+
+                        <View style={styles.detailsContainer}>
+                            <View style={styles.detailRow}>
+                                <Text style={styles.label}>Court:</Text>
+                                <Text style={styles.value}>{courtTitle}</Text>
+                            </View>
+
+                            <View style={styles.detailRow}>
+                                <Text style={styles.label}>Price:</Text>
+                                <Text style={styles.value}>{prizeText}</Text>
+                            </View>
+
+                            <View style={styles.detailRow}>
+                                <Text style={styles.label}>Date:</Text>
+                                <Text style={styles.value}>{selectedDate?.toDateString()}</Text>
+                            </View>
+
+                            <View style={styles.detailRow}>
+                                <Text style={styles.label}>Time:</Text>
+                                <Text style={styles.value}>{selectedTime}</Text>
+                            </View>
+                        </View>
+
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={() => navigation.navigate('HomePage')}
+                        >
+                            <Text style={styles.buttonText}>Back to Home</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </ImageBackground>
+
+            <View style={styles.redRectangle1}>
+                <View style={styles.bottomRow}>
+                    <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.goBack()}>
+                        <Image source={require('./assets/backspace.png')} style={styles.bottomImage} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('HomePage')}>
+                        <Image source={require('./assets/home.png')} style={styles.bottomImage} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('Calendar')}>
+                        <Image source={require('./assets/calendar.png')} style={styles.bottomImage} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('ProfilePage')}>
+                        <Image source={require('./assets/profile.png')} style={styles.bottomImage} />
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </SafeAreaView>
+    );
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    backgroundImage: {
+        flex: 1,
+        resizeMode: 'cover',
+    },
+    overlay: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    },
+    whiteContainer: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 10,
+        width: '80%',
+    },
+    header: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginBottom: 20,
+        color: '#800000',
+    },
+    detailsContainer: {
+        marginVertical: 20,
+    },
+    detailRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 15,
+        paddingBottom: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#eee',
+    },
+    label: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#333',
+    },
+    value: {
+        fontSize: 16,
+        color: '#666',
+    },
+    button: {
+        backgroundColor: '#800000',
+        padding: 15,
+        borderRadius: 5,
+        marginTop: 20,
+    },
+    buttonText: {
+        color: 'white',
+        textAlign: 'center',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    redRectangle1: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: 60,
+        backgroundColor: '#800000',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+    },
+    bottomRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    },
+    bottomButton: {
+        padding: 10,
+    },
+    bottomImage: {
+        width: 30,
+        height: 30,
+        marginHorizontal: 30,
+    },
+    errorText: {
+        color: 'red',
+        fontSize: 18,
+        textAlign: 'center',
+        marginVertical: 20,
+    },
+});
+
+// ... (Your existing code: App.js, HomePage, RegisterPage, LoginPage, etc.) ...
+
+// CourtDetails.js (New component)
+function CourtDetails({ route }) {
+  const navigation = useNavigation();
+  const courtId = route.params.courtId; // Access courtId from navigation params
+
+  // Example: Display court details based on courtId
+  let courtName, courtImage, courtDescription;
+  if (courtId === 'court1') {
+    courtName = 'Court 1';
+    courtImage = require('./assets/court1.jpg');
+    courtDescription = 'Indoor Basketball Court';
+  } else if (courtId === 'court2') {
+    courtName = 'Court 2';
+    courtImage = require('./assets/court2.jpg');
+    courtDescription = 'Indoor Tennis Court';
+  }
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <Image source={courtImage} style={styles.courtImage} />
+      <Text style={styles.courtName}>{courtName}</Text>
+      <Text style={styles.courtDescription}>{courtDescription}</Text>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('FacilityPage')}>
+        <Text style={styles.buttonText}>Back to Facilities</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
+  );
+}
+
+// ... (Your existing styles) ... 
+
+const styles = StyleSheet.create({
+  // ... (Your existing styles) ...
+  courtImage: {
+    width: '100%',
+    height: 200,
+    resizeMode: 'cover',
+    marginBottom: 20,
+  },
+  courtName: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  courtDescription: {
+    fontSize: 16,
+    marginBottom: 20,
+  },
+});
+
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Image, Text, View, ImageBackground, SafeAreaView, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+export default function FacilityPage() {
+  const navigation = useNavigation();
+  return (
+    <SafeAreaView style={styles.container}>
+     
+      <ImageBackground source={require('./assets/background.jpg')} style={styles.image}>
+        <View style={styles.overlay} />
+        <View style={styles.redRectangle} />
+        <Text style={styles.text}>FEATURED COURTS</Text>
+        <ScrollView contentContainerStyle={styles.scrollViewContent}>
+          <View style={styles.courtContainer}>
+            <Image source={require('./assets/basketball.png')} style={styles.courtImage} />
+            <Text style={styles.courtTitle}>Basketball Court</Text>
+            <View style={styles.buttonRow}>
+              <TouchableOpacity style={styles.bookButton} onPress={() => navigation.navigate('BasketballPage')}>
+                <Text style={styles.buttonText}>BOOK NOW</Text>
+              </TouchableOpacity>
+              <View style={styles.eventInfo}>
+                <Text style={styles.eventInfoText}>Book This For Your Event</Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.courtContainer}>
+            <Image source={require('./assets/badminton.png')} style={styles.courtImage} />
+            <Text style={styles.courtTitle}>Badminton Court</Text>
+            <View style={styles.buttonRow}>
+              <TouchableOpacity style={styles.bookButton} onPress={() => navigation.navigate('BadmintonPage')}>
+                <Text style={styles.buttonText}>BOOK NOW</Text>
+              </TouchableOpacity>
+              <View style={styles.eventInfo}>
+                <Text style={styles.eventInfoText}>Book This For Your Event</Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.courtContainer}>
+            <Image source={require('./assets/volleyball.png')} style={styles.courtImage} />
+            <Text style={styles.courtTitle}>Volleyball Court</Text>
+            <View style={styles.buttonRow}>
+              <TouchableOpacity style={styles.bookButton} onPress={() => navigation.navigate('VolleyballPage')}>
+                <Text style={styles.buttonText}>BOOK NOW</Text>
+              </TouchableOpacity>
+              <View style={styles.eventInfo}>
+                <Text style={styles.eventInfoText}>Book This For Your Event</Text>
+              </View>
+            </View>
+          </View>
+        </ScrollView>
+        <View style={styles.redRectangle1}>
+          <View style={styles.bottomRow}>
+            <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('HomePage')}>
+              <Image source={require('./assets/backspace.png')} style={styles.bottomImage} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('HomePage')}>
+              <Image source={require('./assets/home.png')} style={styles.bottomImage} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('Calendar')}>
+              <Image source={require('./assets/calendar.png')} style={styles.bottomImage} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('ProfilePage')}>
+              <Image source={require('./assets/profile.png')} style={styles.bottomImage} />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ImageBackground>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  scrollViewContent: {
+    alignItems: 'center',
+    padding: 20,
+  },
+  courtContainer: {
+    width: '90%',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    padding: 20,
+    borderRadius: 10,
+    marginBottom: 40,
+    alignItems: 'center',
+  },
+  courtImage: {
+    width: 316,
+    height: 117,
+    marginBottom: 5,
+  },
+  courtTitle: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  buttonRow: {
+    flexDirection: 'row', 
+    alignItems: 'center', 
+  },
+  bookButton: {
+    backgroundColor: '#800000',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+    width: '35%',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 12,
+    textAlign: 'center',
+  },
+  image: {
+    flex: 1,
+    resizeMode: 'cover',
+    width: '100%',
+    height: '100%',
+  },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: '#800000',
+    opacity: 0.5,
+  },
+  text: {
+    color: 'white',
+    fontSize: 20,
+    textAlign: 'center',
+    left: 5,
+    marginTop: '20%',
+  },
+  eventInfo: {
+    backgroundColor: '#8C8C8C',
+    padding: 10,
+    borderRadius: 5,
+    marginLeft: 10, 
+    width: '60%',
+    marginTop: 10,
+  },
+  eventInfoText: {
+    color: 'white',
+    fontSize: 12,
+  },
+  redRectangle: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 70,
+    backgroundColor: '#800000',
+  },
+  redRectangle1: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 60,
+    backgroundColor: '#800000',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  bottomRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  bottomButton: {
+    padding: 10,
+  },
+  bottomImage: {
+    width: 30,
+    height: 30,
+    marginHorizontal: 30,
+  },
+});
+
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Image, Text, View, ImageBackground, SafeAreaView, TouchableOpacity, TextInput } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+export default function HomePage() {
+  const navigation = useNavigation(); 
+  return (
+    <SafeAreaView style={styles.container}>
+      <ImageBackground source={require('./assets/background.jpg')} style={styles.image}>
+        <View style={styles.overlay} />
+        <Image source={require('./assets/logo.png')} style={styles.logo} />
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>COVERED COURT RESERVATION</Text>
+        </View>
+        <View style={styles.subTextContainer}>
+          <Text style={styles.subText}>WELCOME</Text>
+        </View>
+        <View style={styles.subTextContainer2}>
+          <Text style={styles.subText2}>At Covered Court Reservation,
+            We Believe Everyone Should Have Access To Quality
+            Indoor Courts. Our User-Friendly Online Reservation System
+            Puts You In Control Of Your Game Time, Allowing You To Choose
+            The Perfect Date And Time For Your Next Game Or Event.
+          </Text>
+        </View>
+        <TouchableOpacity style={styles.button} onPress={() => {
+          navigation.navigate('FacilityPage'); 
+        }}>
+          <Text style={styles.buttonText}>BOOK NOW</Text>
+        </TouchableOpacity>
+        <View style={styles.redRectangle1}>
+          <View style={styles.bottomRow}>
+            <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('HomePage')}>
+              <Image source={require('./assets/backspace.png')} style={styles.bottomImage} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('HomePage')}>
+              <Image source={require('./assets/home.png')} style={styles.bottomImage} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('Calendar')}>
+              <Image source={require('./assets/calendar.png')} style={styles.bottomImage} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('ProfilePage')}>
+              <Image source={require('./assets/profile.png')} style={styles.bottomImage} />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ImageBackground>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  image: {
+    flex: 1,
+    resizeMode: 'cover',
+    width: '100%',
+    height: '100%',
+  },
+  logo: {
+    position: 'absolute',
+    top: 149,
+    left: '40%',
+    width: 94,
+    height: 98,
+    resizeMode: 'contain',
+  },
+  textContainer: {
+    position: 'absolute',
+    top: '25%',
+    
+    textAlign: 'center',
+    
+  },
+  text: {
+    color: 'white',
+    fontSize: 32,
+    textAlign: 'center',
+    marginTop: '10%',
+    marginLeft: 65,
+    marginRight: 10,
+  },
+  subTextContainer: {
+    position: 'absolute',
+    top: '45%',
+    textAlign: 'center',
+  },
+  subText: {
+    color: 'white',
+    fontSize: 24,
+    textAlign: 'center',
+    left: 140,
+  },
+  subTextContainer2: {
+    position: 'absolute',
+    top: '50%',
+  },
+  subText2: {
+    color: 'white',
+    fontSize: 12,
+    textAlign: 'center',
+    marginLeft: 20,
+    marginRight: 20,
+
+  },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: '#800000',
+    opacity: 0.5,
+  },
+  button: {
+    position: 'absolute',
+    bottom: '15%',
+    left: '15%',
+    backgroundColor: '#800000',
+    padding: 15,
+    borderRadius: 5,
+    width: '70%',
+    height: '10%',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 26,
+    textAlign: 'center',
+    top: 5,
+  },
+  redRectangle1: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 60,
+    backgroundColor: '#800000',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  bottomRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  bottomButton: {
+    padding: 10,
+  },
+  bottomImage: {
+    width: 30,
+    height: 30,
+    marginHorizontal: 30,
+  },
+});
+
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Image, Text, View, ImageBackground, SafeAreaView, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import { StatusBar } from 'expo-status-bar';
+
+export default function LoginPage() {
+  const navigation = useNavigation();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [loginMessage, setLoginMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    // Check for existing token on component mount
+    const checkToken = async () => {
+      try {
+        const token = await AsyncStorage.getItem('token');
+        if (token) {
+          navigation.navigate('HomePage');
+        }
+      } catch (error) {
+        console.error("Error checking token:", error);
+      }
+    };
+    checkToken();
+  }, [navigation]);
+
+  const handleLogin = async () => {
+    setErrorMessage('');
+    setLoginMessage('');
+    setIsLoading(true);
+
+    if (!email || !password) {
+      setErrorMessage('Please enter both email and password.');
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://192.168.1.187:3000/login', {
+        email,
+        password
+      });
+
+      if (response.data && response.data.accessToken) {
+        await AsyncStorage.setItem('token', response.data.accessToken);
+        setLoginMessage('Successfully Logged In!');
+        setTimeout(() => {
+          navigation.navigate('HomePage');
+        }, 1000);
+      } else {
+        setErrorMessage(response.data.message || 'Invalid response from server. Please try again.');
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.code === 'ECONNABORTED') {
+          setErrorMessage('The request timed out. Please try again.');
+        } else if (!error.response) {
+          setErrorMessage('Network error. Please check your internet connection.');
+        } else if (error.response.status === 401) {
+          setErrorMessage('Invalid email or password. Please try again.');
+        } else {
+          setErrorMessage(`Server error (${error.response.status}): ${error.response?.data?.message || 'Unknown error'}`);
+        }
+      } else {
+        setErrorMessage('An unexpected error occurred. Please try again later.');
+      }
+      console.error('Error during login:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <ImageBackground source={require('./assets/background.jpg')} style={styles.image}>
+        <View style={styles.overlay} />
+        <Image source={require('./assets/logo.png')} style={styles.logo} />
+        <View style={styles.formContainer}>
+          {errorMessage ? (
+            <Text style={styles.errorMessage}>{errorMessage}</Text>
+          ) : loginMessage ? (
+            <Text style={styles.loginMessage}>{loginMessage}</Text>
+          ) : null}
+          <View style={styles.header}>
+            <Text style={styles.headerText}>Log In</Text>
+          </View>
+          <View style={styles.inputContainer}>
+            <Image source={require('./assets/profileicon.png')} style={styles.profileIcon} />
+            <TextInput
+              style={styles.input}
+              placeholder="Enter your email"
+              keyboardType="email-address"
+              value={email}
+              onChangeText={setEmail}
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <Image source={require('./assets/passwordicon.png')} style={styles.passwordIcon} />
+            <TextInput
+              style={styles.input}
+              placeholder="Enter your password"
+              secureTextEntry={true}
+              value={password}
+              onChangeText={setPassword}
+            />
+          </View>
+          <TouchableOpacity style={styles.forgotPasswordLink} onPress={() => {
+            navigation.navigate('HomePage');
+          }}>
+            <Text style={styles.forgotPasswordLinkText}>Forgot password?</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.submitButton, isLoading && styles.disabledButton]}
+            onPress={handleLogin}
+            disabled={isLoading}
+          >
+            <Text style={styles.submitButtonText}>
+              {isLoading ? 'Logging in...' : 'Login'}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
+      <StatusBar style="auto" />
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  image: {
+    flex: 1,
+    resizeMode: 'cover',
+    width: '100%',
+    height: '100%',
+  },
+  logo: {
+    position: 'absolute',
+    top: '5%',
+    left: '5%',
+    width: '15%',
+    height: '10%',
+    resizeMode: 'contain',
+  },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: '#800000',
+    opacity: 0.5,
+  },
+  formContainer: {
+    marginTop: 20,
+    width: '80%',
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    top: '30%',
+    left: '10%',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: 'gray',
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 5,
+    width: '80%',
+  },
+  submitButton: {
+    backgroundColor: '#800000',
+    padding: 10,
+    borderRadius: 5,
+    width: '80%',
+    marginTop: 20,
+  },
+  submitButtonText: {
+    color: 'white',
+    textAlign: 'center',
+  },
+  disabledButton: {
+    backgroundColor: '#cccccc',
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'gray',
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 5,
+    width: '100%',
+  },
+  profileIcon: {
+    width: 50,
+    height: 50,
+    marginRight: 10,
+  },
+  passwordIcon: {
+    width: 50,
+    height: 50,
+    marginRight: 10,
+  },
+  forgotPasswordLink: {
+    marginBottom: 20,
+    marginTop: 20,
+    textAlign: 'center',
+  },
+  forgotPasswordLinkText: {
+    color: '#800000',
+    textDecorationLine: 'underline',
+    fontSize: 14,
+  },
+  header: {
+    height: 70,
+    marginBottom: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+  },
+  headerText: {
+    color: '#800000',
+    fontSize: 50,
+    fontWeight: 'bold',
+  },
+  errorMessage: {
+    color: 'red',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  loginMessage: {
+    color: 'green',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+});
+
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { WebView } from 'react-native-webview';
+import axios from 'axios';
+
+export default function PaymentDetailsPage({ route }) {
+    const navigation = useNavigation();
+    const { bookingId, courtTitle, prizeText, selectedDate, selectedTime, name, email } = route.params;
+    const [approvalUrl, setApprovalUrl] = useState('');
+    const [showWebView, setShowWebView] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handlePayment = async () => {
+        try {
+            setIsLoading(true);
+
+            // Extract and validate amount
+            const numericAmount = parseFloat(prizeText.replace(/[^0-9.]/g, '')); // Remove any non-numeric characters
+            if (isNaN(numericAmount) || numericAmount <= 0) {
+                Alert.alert('Invalid Amount', 'The price must be a valid number.');
+                setIsLoading(false);
+                return;
+            }
+
+            // Call backend to create a PayPal order
+            const response = await axios.post('http://192.168.1.187:3000/create-paypal-order', {
+                amount: numericAmount.toFixed(2), // Ensure two decimal places
+            });
+
+            const { approvalUrl } = response.data;
+
+            if (approvalUrl) {
+                setApprovalUrl(approvalUrl);
+                setShowWebView(true);
+            } else {
+                Alert.alert('Error', 'Unable to generate PayPal approval URL.');
+            }
+        } catch (error) {
+            console.error('Error creating PayPal order:', error.response?.data || error.message);
+            Alert.alert('Error', 'Failed to initiate payment. Please try again later.');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleWebViewNavigationStateChange = async (navState) => {
+        const { url } = navState;
+
+        if (url.includes('success')) {
+            setShowWebView(false);
+            try {
+                // Call backend to store payment details
+                await axios.post('http://192.168.1.187:3000/api/payment/success', {
+                    court: courtTitle,
+                    date: selectedDate,
+                    time: selectedTime,
+                    price: parseFloat(prizeText.replace(/[^0-9.]/g, '')).toFixed(2),
+                    username: name,
+                    bookingID: bookingId,
+                });
+
+                Alert.alert('Payment Successful!', 'Your booking has been confirmed.');
+                navigation.navigate('HomePage'); // Navigate to HomePage
+            } catch (error) {
+                console.error('Error storing payment:', error.response?.data || error.message);
+                Alert.alert('Error', 'Payment successful, but failed to save booking details.');
+            }
+        } else if (url.includes('cancel')) {
+            setShowWebView(false);
+            Alert.alert('Payment Cancelled', 'The payment was not completed.');
+        }
+    };
+
+    return (
+        <SafeAreaView style={styles.container}>
+            {showWebView ? (
+                <View style={styles.webViewContainer}>
+                    {isLoading && <ActivityIndicator size="large" color="#007bff" style={styles.loader} />}
+                    <WebView
+                        source={{ uri: approvalUrl }}
+                        onNavigationStateChange={handleWebViewNavigationStateChange}
+                        onLoadStart={() => setIsLoading(true)}
+                        onLoadEnd={() => setIsLoading(false)}
+                    />
+                </View>
+            ) : (
+                <View style={styles.contentContainer}>
+                    <Text style={styles.header}>Payment Details</Text>
+
+                    <View style={styles.detailsContainer}>
+                        <DetailRow label="Booking ID:" value={bookingId} />
+                        <DetailRow label="Court:" value={courtTitle} />
+                        <DetailRow label="Price:" value={prizeText} />
+                        <DetailRow label="Date:" value={selectedDate.toDateString()} />
+                        <DetailRow label="Time:" value={selectedTime} />
+                        <DetailRow label="Name:" value={name} />
+                        <DetailRow label="Email:" value={email} />
+                    </View>
+
+                    <TouchableOpacity style={styles.button} onPress={handlePayment} disabled={isLoading}>
+                        <Text style={styles.buttonText}>Proceed to Payment</Text>
+                    </TouchableOpacity>
+                </View>
+            )}
+        </SafeAreaView>
+    );
+}
+
+const DetailRow = ({ label, value }) => (
+    <View style={styles.detailRow}>
+        <Text style={styles.label}>{label}</Text>
+        <Text style={styles.value}>{value}</Text>
+    </View>
+);
+
+const styles = StyleSheet.create({
+    container: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+    contentContainer: { backgroundColor: 'white', padding: 20, borderRadius: 10, width: '80%', maxWidth: 400 },
+    header: { fontSize: 24, fontWeight: 'bold', marginBottom: 20, textAlign: 'center' },
+    detailsContainer: { marginBottom: 20 },
+    detailRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 },
+    label: { fontWeight: 'bold' },
+    value: { fontSize: 16 },
+    button: { backgroundColor: '#007bff', padding: 15, borderRadius: 5, alignItems: 'center' },
+    buttonText: { color: 'white', fontSize: 18, fontWeight: 'bold' },
+    webViewContainer: { flex: 1, width: '100%' },
+    loader: { position: 'absolute', top: '50%', left: '50%', transform: [{ translateX: -50 }, { translateY: -50 }], zIndex: 1 },
+});
+
+
+import React from 'react';
+import { SafeAreaView, StyleSheet } from 'react-native';
+import { WebView } from 'react-native-webview';
+
+export default function PayPalPaymentPage({ route, navigation }) {
+    const { returnURL, cancelURL, sandboxURL } = route.params;
+
+    const handleNavigationStateChange = (event) => {
+        if (event.url === returnURL) {
+            // Payment successful
+            navigation.navigate('BookingdetailsPage', { ...route.params });
+        } else if (event.url === cancelURL) {
+            // Payment canceled
+            navigation.goBack();
+        }
+    };
+
+    return (
+        <SafeAreaView style={styles.container}>
+            <WebView
+                source={{ uri: sandboxURL }}
+                onNavigationStateChange={handleNavigationStateChange}
+                style={{ flex: 1 }}
+            />
+        </SafeAreaView>
+    );
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+});
+
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Image, Text, View, SafeAreaView, TouchableOpacity, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import * as ImagePicker from 'expo-image-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import { StatusBar } from 'expo-status-bar';
+
+export default function ProfilePage() {
+  const navigation = useNavigation();
+  const [imageUri, setImageUri] = useState(null);
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(true); // Add loading state
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setImageUri(result.assets[0].uri);
+    }
+  };
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = await AsyncStorage.getItem('token');
+        if (token) {
+          
+          const response = await axios.get('http://192.168.1.187:3000/profile', { // CORRECTED ENDPOINT
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          if (response.status === 200 && response.data) {
+            setFullName(response.data.fullName);
+            setEmail(response.data.email);
+          } else {
+            Alert.alert('Error', response.data?.message || 'Failed to fetch user data.');
+          }
+        } else {
+          Alert.alert('Error', 'You are not logged in. Please log in and try again.');
+          navigation.navigate('LoginPage');
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        Alert.alert('Error', 'An error occurred while fetching user data. Please try again later.');
+      } finally {
+        setIsLoading(false); // Set loading to false
+      }
+    };
+
+    fetchUserData();
+  }, []); // Removed navigation dependency
+
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.removeItem('token');
+      navigation.navigate('LoginPage');
+    } catch (error) {
+      console.error('Error logging out:', error);
+      Alert.alert('Error', 'An error occurred while logging out.');
+    }
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <StatusBar style="auto" />
+      <View style={styles.profileContainer}>
+        {imageUri ? (
+          <Image source={{ uri: imageUri }} style={styles.profileIcon} />
+        ) : (
+          <TouchableOpacity onPress={pickImage} style={styles.profileIconContainer}>
+            <Image source={require('./assets/profileicon.png')} style={styles.profileIcon} />
+          </TouchableOpacity>
+        )}
+        <Text style={styles.profileName}>Name: {fullName || ''}</Text>
+        <Text style={styles.profileEmail}>Email: {email || ''}</Text>
+      </View>
+      <TouchableOpacity style={styles.infoContainer} onPress={() => navigation.navigate('BookingdetailsPage')}>
+        <Text style={styles.infoText}>BOOKING</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate('EditProfilePage')}>
+        <Text style={styles.editButtonText}>Edit Profile</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+        <Text style={styles.logoutButtonText}>Logout</Text>
+      </TouchableOpacity>
+      <View style={styles.redRectangle1}>
+        <View style={styles.bottomRow}>
+          <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('HomePage')}>
+            <Image source={require('./assets/backspace.png')} style={styles.bottomImage} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('HomePage')}>
+            <Image source={require('./assets/home.png')} style={styles.bottomImage} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('Calendar')}>
+            <Image source={require('./assets/calendar.png')} style={styles.bottomImage} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('ProfilePage')}>
+            <Image source={require('./assets/profile.png')} style={styles.bottomImage} />
+          </TouchableOpacity>
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 100,
+    backgroundColor: '#f0f0f0',
+  },
+  profileContainer: {
+    marginLeft: 20,
+  },
+  profileIconContainer: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  profileIcon: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+  },
+  profileName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 10,
+    color: '#333',
+  },
+  profileEmail: {
+    fontSize: 16,
+    marginTop: 5,
+    color: '#666',
+  },
+  infoContainer: {
+    marginTop: 10,
+    marginLeft: 10,
+    width: '80%',
+    padding: 15,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 5,
+  },
+  infoText: {
+    fontSize: 18,
+    color: '#333',
+    marginBottom: 5,
+  },
+  editButton: {
+    marginTop: '10%',
+    backgroundColor: '#800000',
+    borderRadius: 5,
+    width: '35%',
+    height: '5%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 20,
+  },
+  editButtonText: {
+    color: 'white',
+    fontSize: 20,
+  },
+  logoutButton: {
+    marginTop: '5%',
+    backgroundColor: '#800000',
+    borderRadius: 5,
+    width: '30%',
+    height: '5%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 20,
+  },
+  logoutButtonText: {
+    color: 'white',
+    fontSize: 20,
+  },
+  redRectangle1: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 60,
+    backgroundColor: '#800000',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  bottomRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  bottomButton: {
+    padding: 10,
+  },
+  bottomImage: {
+    width: 30,
+    height: 30,
+    marginHorizontal: 30,
+  },
+});
+
+import React, { useState } from 'react';
+import { StyleSheet, Image, Text, View, SafeAreaView, TouchableOpacity, TextInput, Alert, ScrollView, ActivityIndicator } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
+
+export default function RegisterPage() {
+  const navigation = useNavigation();
+  const [fullName, setFullName] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [gender, setGender] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleRegister = async () => {
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+    if (!fullName || !username || !email || !phoneNumber || !password || !confirmPassword || !gender) {
+      setError('Please complete all the details');
+      return;
+    }
+
+    setIsLoading(true);
+    setError('');
+
+    try {
+      const response = await axios.post('http://192.168.1.187:3000/register', {
+        fullName,
+        username,
+        email,
+        phoneNumber,
+        password,
+        gender
+      });
+
+      if (response.status === 201) {
+        // Redirect to LoginPage after successful registration
+        Alert.alert('Success', 'Registration successful', [
+          { text: 'OK', onPress: () => navigation.navigate('LoginPage') }
+        ]);
+        // Reset the form fields
+        resetForm();
+      } else {
+        handleErrorResponse(response.data);
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+      setError('Network request failed. Please check your connection and try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleErrorResponse = (data) => {
+    if (data.message) {
+      if (data.message.includes('email already exists')) {
+        setError('Email already exists. Please choose a different email.');
+      } else {
+        setError(data.message);
+      }
+    } else {
+      setError('Registration failed. Please try again.');
+    }
+  };
+
+  const resetForm = () => {
+    setFullName('');
+    setUsername('');
+    setEmail('');
+    setPhoneNumber('');
+    setPassword('');
+    setConfirmPassword('');
+    setGender('');
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <View style={styles.redRectangle} />
+        <Image source={require('./assets/logo.png')} style={styles.secondLogo} />
+        <View style={styles.formContainer}>
+          <Text style={styles.formLabel}>Full Name</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your full name"
+            onChangeText={setFullName}
+            value={fullName}
+          />
+
+          <Text style={styles.formLabel}>Username</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your username"
+            onChangeText={setUsername}
+            value={username}
+          />
+
+          <Text style={styles.formLabel}>Email</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your email"
+            keyboardType="email-address"
+            onChangeText={setEmail}
+            value={email}
+          />
+
+          <Text style={styles.formLabel}>Phone Number</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your phone number"
+            keyboardType="phone-pad"
+            onChangeText={setPhoneNumber}
+            value={phoneNumber}
+          />
+
+          <Text style={styles.formLabel}>Password</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your password"
+            secureTextEntry={true}
+            onChangeText={setPassword}
+            value={password}
+          />
+
+          <Text style={styles.formLabel}>Confirm Password</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Confirm your password"
+            secureTextEntry={true}
+            onChangeText={setConfirmPassword}
+            value={confirmPassword}
+          />
+
+          <Text style={styles.formLabel}>Gender</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your gender"
+            onChangeText={setGender}
+            value={gender}
+          />
+
+          {error ? <Text style={styles.errorText}>{error}</Text> : null}
+
+          <TouchableOpacity
+            style={[styles.submitButton, isLoading && styles.disabledButton]}
+            onPress={handleRegister}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <ActivityIndicator color="white" />
+            ) : (
+              <Text style={styles.submitButtonText}>Register</Text>
+            )}
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.loginLink}
+            onPress={() => navigation.navigate('LoginPage')}
+          >
+            <Text style={styles.loginLinkText}>Already have an account? Log in</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 20,
+  },
+  redRectangle: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 70,
+    backgroundColor: '#800000',
+  },
+  secondLogo: {
+    width: 80,
+    height: 80,
+    resizeMode: 'contain',
+    marginBottom: 5,
+    marginTop: 50,
+  },
+  formContainer: {
+    width: '90%',
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  formLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 5,
+    color: '#333',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ddd',
+    padding: 10,
+    marginBottom: 15,
+    borderRadius: 5,
+    fontSize: 16,
+  },
+  submitButton: {
+    backgroundColor: '#800000',
+    padding: 15,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  disabledButton: {
+    backgroundColor: '#cccccc',
+  },
+  submitButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  loginLink: {
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  loginLinkText: {
+    color: '#800000',
+    fontSize: 16,
+    textDecorationLine: 'underline',
+  },
+  errorText: {
+    color: 'red',
+    marginBottom: 10,
+    fontSize: 14,
+  },
+});
+
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Image, Text, View, ImageBackground, SafeAreaView, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+export default function VolleyballPage() {
+    const navigation = useNavigation();
+    return (
+        <SafeAreaView style={styles.container}>
+
+            <ImageBackground source={require('./assets/background.jpg')} style={styles.image}>
+                
+                <View style={styles.overlay} />
+                <Text style={styles.text}>VOLLEYBALL COURT</Text>
+                <View style={styles.redRectangle} />
+
+                <View style={styles.scrollViewContent}>
+                    <View style={styles.courtContainer}>
+                        <Image source={require('./assets/volleyball.png')} style={styles.courtImage} />
+                        <Text style={styles.courtTitle}>VOLLEYBALL-WHOLE COURT</Text>
+                        <Text style={styles.subcourtTitle}>For additional hours, kindly make another booking</Text>
+                        <Text style={styles.prizeText}>1 HOUR  ₱500.00</Text>
+                        <View style={styles.buttonRow}>
+                            <TouchableOpacity style={styles.bookButton} onPress={() => navigation.navigate('BookingPage', {
+                                courtTitle: 'VOLLEYBALL-WHOLE COURT',
+                                prizeText: '₱500.00'
+                                })}>
+                                <Text style={styles.buttonText}>BOOK NOW</Text>
+                            </TouchableOpacity>
+                            <View style={styles.eventInfo}>
+                                <Text style={styles.eventInfoText}>Book This For Your Event</Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={styles.courtContainer}>
+                        <Image source={require('./assets/volleyball.png')} style={styles.courtImage} />
+                        <Text style={styles.courtTitle}>VOLLEYBALL-HALF COURT</Text>
+                        <Text style={styles.subcourtTitle}>For additional hours, kindly make another booking</Text>
+                        <Text style={styles.prizeText}>1 HOUR  ₱300.00</Text>
+                        <View style={styles.buttonRow}>
+                            <TouchableOpacity style={styles.bookButton} onPress={() => navigation.navigate('BookingPage', {
+                                courtTitle: 'VOLLEYBALL-HALF COURT',
+                                prizeText: '₱300.00'
+                            })}>
+                                <Text style={styles.buttonText}>BOOK NOW</Text>
+                            </TouchableOpacity>
+                            <View style={styles.eventInfo}>
+                                <Text style={styles.eventInfoText}>Book This For Your Event</Text>
+                            </View>
+                        </View>
+                    </View>
+
+                </View>
+                <View style={styles.redRectangle1}>
+                    <View style={styles.bottomRow}>
+                        <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.goBack()}>
+                            <Image source={require('./assets/backspace.png')} style={styles.bottomImage} />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('HomePage')}>
+                            <Image source={require('./assets/home.png')} style={styles.bottomImage} />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('Calendar')}>
+                            <Image source={require('./assets/calendar.png')} style={styles.bottomImage} />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('ProfilePage')}>
+                            <Image source={require('./assets/profile.png')} style={styles.bottomImage} />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </ImageBackground>
+        </SafeAreaView>
+    );
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    scrollViewContent: {
+        alignItems: 'center',
+        padding: 20,
+    },
+    courtContainer: {
+        width: '90%',
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        padding: 20,
+        borderRadius: 10,
+        marginBottom: 40,
+        alignItems: 'center',
+    },
+    courtImage: {
+        width: 316,
+        height: 117,
+        marginBottom: 5,
+    },
+    courtTitle: {
+        fontSize: 12,
+        fontWeight: 'bold',
+        marginBottom: 5,
+    },
+    subcourtTitle: {
+        fontSize: 12,
+        fontWeight: 'regular',
+        marginBottom: 5,
+        textAlign: 'center',
+    },
+    buttonRow: {
+        flexDirection: 'row', 
+        alignItems: 'center', 
+    },
+    bookButton: {
+        backgroundColor: '#800000',
+        padding: 10,
+        borderRadius: 5,
+        marginTop: 10,
+        width: '35%',
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 12,
+        textAlign: 'center',
+    },
+    image: {
+        flex: 1,
+        resizeMode: 'cover',
+        width: '100%',
+        height: '100%',
+    },
+    overlay: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: '#800000',
+        opacity: 0.5,
+    },
+    text: {
+        color: 'white',
+        fontSize: 20,
+        textAlign: 'center',
+        left: 5,
+        marginTop: '20%',
+    },
+    eventInfo: {
+        backgroundColor: '#8C8C8C',
+        padding: 10,
+        borderRadius: 5,
+        marginLeft: 10, 
+        width: '60%',
+        marginTop: 10,
+    },
+    eventInfoText: {
+        color: 'white',
+        fontSize: 12,
+    },
+    redRectangle: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: 70,
+        backgroundColor: '#800000',
+    },
+    redRectangle1: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: 60,
+        backgroundColor: '#800000',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+    },
+    bottomRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    },
+    bottomButton: {
+        padding: 10,
+    },
+    bottomImage: {
+        width: 30,
+        height: 30,
+        marginHorizontal: 30,
+    },
+});
+
+     import { StatusBar } from 'expo-status-bar';
+     import { StyleSheet, Image, Text, View, ImageBackground, SafeAreaView, TouchableOpacity, TextInput } from 'react-native';
+     import { useNavigation } from '@react-navigation/native';
+     
+
+     export default function WelcomePage() {
+       const navigation = useNavigation(); 
+       return (
+         <SafeAreaView style={styles.container}>
+           <ImageBackground source={require('./assets/background.jpg')} style={styles.image}>
+             <View style={styles.overlay} /> 
+             <Image source={require('./assets/logo.png')} style={styles.logo} />
+             <View style={styles.textContainer}>
+               <Text style={styles.text}>No Rain No Problem Secure Your Covered Court And Play On</Text>
+             </View>
+             <View style={styles.subTextContainer}>
+               <Text style={styles.subText}>At Covered Court Reservation,
+                We Believe Everyone Should Have Access To Quality 
+                Indoor Courts. Our User-Friendly Online Reservation System 
+                Puts You In Control Of Your Game Time, Allowing You To Choose 
+                The Perfect Date And Time For Your Next Game Or Event.</Text>
+             </View>
+             <TouchableOpacity style={styles.button} onPress={() => {
+               navigation.navigate('RegisterPage'); // Navigate to RegisterPage
+             }}>
+               <Text style={styles.buttonText}>Book Now</Text>
+             </TouchableOpacity>
+           </ImageBackground>
+           <StatusBar style="auto" />
+         </SafeAreaView>
+       );
+     }
+
+     const styles = StyleSheet.create({
+       // HomePage styles
+       container: {
+         flex: 1,
+         justifyContent: 'center',
+         alignItems: 'center',
+       },
+       image: {
+         flex: 1,
+         resizeMode: 'cover',
+         width: '100%',
+         height: '100%',
+       },
+       logo: {
+         position: 'absolute',
+         top: '5%', 
+         left: '5%',
+         width: '15%', 
+         height: '10%', 
+         resizeMode: 'contain', 
+       },
+       textContainer: {
+         position: 'absolute', 
+         top: '25%', 
+         
+         alignItems: 'center',
+       },
+       text: {
+         color: 'white',
+         fontSize: 32,
+         textAlign: 'center', 
+         fontStyle: 'Poppins',
+         marginLeft: 40,
+         
+       },
+       subTextContainer: {
+         position: 'absolute', 
+         top: '45%',
+       },
+       subText: {
+         color: 'white',
+         fontSize: 12,
+         textAlign: 'center', 
+         fontStyle: 'Poppins',
+         marginLeft: 40,
+         marginRight: 40,
+       },
+       overlay: {
+         position: 'absolute',
+         top: 0,
+         left: 0,
+         right: 0,
+         bottom: 0,
+         backgroundColor: '#800000', 
+         opacity: 0.5, 
+       },
+       button: {
+         position: 'absolute',
+         bottom: '15%', 
+         left: '15%',
+         backgroundColor: '#800000', 
+         padding: 15,
+         borderRadius: 5,
+         width: '70%',
+         height: '10%',
+       },
+       buttonText: {
+         color: 'white', 
+         fontSize: 26,
+         textAlign: 'center',
+       },
+     });
+const express = require('express');
+const { MongoClient } = require('mongodb');
+const bcrypt = require('bcrypt');
+const cors = require('cors');
+const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
+require('dotenv').config();
+const paypal = require('@paypal/checkout-server-sdk');
+
+const app = express();
+app.use(express.json());
+app.use(cors());
+
+// MongoDB Connection
+const uri = process.env.MONGO_URI || "mongodb+srv://iamkiethesbo:Nuisanc3@cluster0.jutx2.mongodb.net/?retryWrites=true&w=majority";
+const client = new MongoClient(uri, {
+  serverSelectionTimeoutMS: 5000,
+  socketTimeoutMS: 45000,
+});
+
+const JWT_SECRET = process.env.JWT_SECRET;
+
+// Define Mongoose Models
+const orderSchema = new mongoose.Schema({
+  orderID: { type: String, required: true, unique: true },
+  status: { type: String, default: 'PAID' },
+  amount: { type: Number, required: true },
+  createdAt: { type: Date, default: Date.now },
+});
+
+const Order = mongoose.model('Order', orderSchema);
+
+// User schema for registration
+const userSchema = new mongoose.Schema({
+  fullName: { type: String, required: true },
+  username: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  phoneNumber: { type: String, required: true },
+  password: { type: String, required: true },
+  gender: { type: String, required: true },
+});
+
+const User = mongoose.model('User', userSchema);
+
+// PayPal Environment
+const environment = new paypal.core.SandboxEnvironment(
+  process.env.PAYPAL_CLIENT_ID,
+  process.env.PAYPAL_CLIENT_SECRET
+);
+const paypalClient = new paypal.core.PayPalHttpClient(environment);
+
+// Route to Register User
+app.post('/register', async (req, res) => {
+  const { fullName, username, email, phoneNumber, password, gender } = req.body;
+
+  if (!fullName || !username || !email || !phoneNumber || !password || !gender) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
+  try {
+    const existingUser = await User.findOne({ $or: [{ email }, { username }] });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email or username already exists' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = new User({
+      fullName,
+      username,
+      email,
+      phoneNumber,
+      password: hashedPassword,
+      gender,
+    });
+
+    await newUser.save();
+
+    res.status(201).json({ message: 'User registered successfully' });
+  } catch (error) {
+    console.error('Error registering user:', error);
+    res.status(500).json({ message: 'Registration failed', error: error.message });
+  }
+});
+
+// Login Route - Added to handle user login
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: 'Please provide email and password' });
+  }
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    const payload = { userId: user._id };
+    const accessToken = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
+
+    res.json({ accessToken });
+  } catch (error) {
+    console.error('Error logging in user:', error);
+    res.status(500).json({ message: 'Login failed', error: error.message });
+  }
+});
+
+// MongoDB Connection
+async function run() {
+  try {
+    console.log("Attempting to connect to MongoDB...");
+    await client.connect();
+    console.log("Connected successfully to MongoDB");
+
+    await mongoose.connect(uri, {});
+    console.log('Connected to MongoDB using Mongoose');
+
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  } catch (err) {
+    console.error("Database connection error:", err);
+    if (err.name === 'MongoServerSelectionError') {
+      console.error("Failed to select a MongoDB server. Check your network or Atlas settings.");
+    }
+  }
+}
+
+run().catch(console.error);
+
+// Graceful Shutdown
+process.on('SIGINT', async () => {
+  await client.close();
+  console.log('MongoDB connection closed');
+  process.exit(0);
+});
+
+
+
